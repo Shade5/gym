@@ -5,6 +5,7 @@ import numpy as np
 import gym
 from gym import error, spaces
 from gym.utils import seeding
+import cv2
 
 try:
     import mujoco_py
@@ -44,11 +45,18 @@ class RobotEnv(gym.GoalEnv):
             achieved_goal=spaces.Box(-np.inf, np.inf, shape=obs['achieved_goal'].shape, dtype='float32'),
             observation=spaces.Box(-np.inf, np.inf, shape=obs['observation'].shape, dtype='float32'),
         ))
+        self.width = 640
+        self.height = 480
+        self.camera_names = []
 
     @property
     def dt(self):
         return self.sim.model.opt.timestep * self.sim.nsubsteps
 
+    def set_cameras(self, width=640, height=480, camera_names=[]):
+        self.width = width
+        self.height = height
+        self.camera_names = camera_names
     # Env methods
     # ----------------------------
 
@@ -64,9 +72,12 @@ class RobotEnv(gym.GoalEnv):
         obs = self._get_obs()
 
         done = False
-        info = {
-            'is_success': self._is_success(obs['achieved_goal'], self.goal),
-        }
+        info = {'is_success': self._is_success(obs['achieved_goal'], self.goal)}
+        for name in self.camera_names:
+            info['rgb_' + name], info['depth_' + name] = self.sim.render(width=self.width, height=self.height,
+                                                                         camera_name=name,
+                                                                         depth=True)
+
         reward = self.compute_reward(obs['achieved_goal'], self.goal, info)
         return obs, reward, done, info
 
