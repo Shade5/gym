@@ -45,15 +45,15 @@ class RobotEnv(gym.GoalEnv):
             achieved_goal=spaces.Box(-np.inf, np.inf, shape=obs['achieved_goal'].shape, dtype='float32'),
             observation=spaces.Box(-np.inf, np.inf, shape=obs['observation'].shape, dtype='float32'),
         ))
-        self.width = 640
-        self.height = 480
+        self.width = 128
+        self.height = 128
         self.camera_names = []
 
     @property
     def dt(self):
         return self.sim.model.opt.timestep * self.sim.nsubsteps
 
-    def set_cameras(self, width=640, height=480, camera_names=[]):
+    def set_cameras(self, width=128, height=128, camera_names=[]):
         self.width = width
         self.height = height
         self.camera_names = camera_names

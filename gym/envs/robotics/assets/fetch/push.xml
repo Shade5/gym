@@ -24,14 +24,14 @@
 			<geom size="0.025 0.025 0.025" type="box" condim="3" name="object0" material="block_mat" mass="2"></geom>
 			<site name="object0" pos="0 0 0" size="0.02 0.02 0.02" rgba="1 0 0 1" type="sphere"></site>
 		</body>
-		<body name="camera0" pos="2 0.75 1.2">
-			<camera euler="0 0.75 1.57" fovy="43.3" name="camera0"></camera>
+		<body name="camera0" pos="2 0.75 1">
+			<camera quat="0.65823 0.258891 0.259097 0.657706" fovy="45" name="camera0"></camera>
 		</body>
-		<body name="camera1" pos="2 0.55 1.2">
-			<camera euler="0 0.75 1.57" fovy="43.3" name="camera1"></camera>
+		<body name="camera1" pos="1.32 0 1">
+			<camera quat="0.929537 0.365891 -0.016726 0.042491" fovy="45" name="camera1"></camera>
 		</body>
-		<body name="camera2" pos="2 1 1.2">
-			<camera euler="0 0.75 1.57" fovy="43.3" name="camera2"></camera>
+		<body name="camera2" pos="1.32 1.5 1">
+			<camera quat="0.01996 0.007567 0.366225 0.930281" fovy="45" name="camera2"></camera>
 		</body>
 
 		<light directional="true" ambient="0.2 0.2 0.2" diffuse="0.8 0.8 0.8" specular="0.3 0.3 0.3" castshadow="false" pos="0 0 4" dir="0 0 -1" name="light0"></light>
