@@ -64,6 +64,13 @@ class RobotEnv(gym.GoalEnv):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
 
+    def convert_depth_to_meters(self, depth):
+        extent = self.sim.model.stat.extent
+        near = self.sim.model.vis.map.znear * extent
+        far = self.sim.model.vis.map.zfar * extent
+        image = near / (1 - depth * (1 - near / far))
+        return image
+
     def step(self, action):
         action = np.clip(action, self.action_space.low, self.action_space.high)
         self._set_action(action)
@@ -77,6 +84,8 @@ class RobotEnv(gym.GoalEnv):
             info['rgb_' + name], info['depth_' + name] = self.sim.render(width=self.width, height=self.height,
                                                                          camera_name=name,
                                                                          depth=True)
+            info['rgb_' + name] = np.flipud(info['rgb_' + name])
+            info['depth_' + name] = self.convert_depth_to_meters(np.flipud(info['depth_' + name]))
 
         reward = self.compute_reward(obs['achieved_goal'], self.goal, info)
         return obs, reward, done, info
