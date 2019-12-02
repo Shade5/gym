@@ -80,6 +80,7 @@ class RobotEnv(gym.GoalEnv):
 
         done = False
         info = {'is_success': self._is_success(obs['achieved_goal'], self.goal)}
+        self._render_callback()
         for name in self.camera_names:
             info['rgb_' + name], info['depth_' + name] = self.sim.render(width=self.width, height=self.height,
                                                                          camera_name=name,

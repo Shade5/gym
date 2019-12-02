@@ -11,7 +11,7 @@ import pickle
 width, height = 128, 128
 fovy = 45
 
-env = gym.make('FetchPush-v1')
+env = gym.make('FetchReach-v1')
 env.set_cameras(width=width, height=height, camera_names=['camera0', 'camera1', 'camera2'])
 env.reset()
 
@@ -34,22 +34,22 @@ dict_to_save = {'intrinsics': K,
                                np.vstack((np.hstack((R2, t2)), [0, 0, 0, 1]))],
                 'rgb': [],
                 'depth': []}
-for i in range(3):
+for i in range(100):
     env.reset()
     done = False
     while not done:
         obs, reward, done, info = env.step(env.action_space.sample())
         dict_to_save['rgb'].append(np.stack([info['rgb_' + c] for c in ['camera0', 'camera1', 'camera2']]))
         dict_to_save['depth'].append(np.stack([info['depth_' + c] for c in ['camera0', 'camera1', 'camera2']]))
-        for k, v in info.items():
-            if 'rgb' in k:
-                cv2.imshow(k, cv2.cvtColor(v, cv2.COLOR_RGB2BGR))
-            if 'depth' in k:
-                cv2.imshow(k, (v - v.min()) / (v.max() - v.min()))
-        cv2.waitKey(1)
-        sleep(0.01)
+        # for k, v in info.items():
+        #     if 'rgb' in k:
+        #         cv2.imshow(k, cv2.cvtColor(v, cv2.COLOR_RGB2BGR))
+        #     if 'depth' in k:
+        #         cv2.imshow(k, (v - v.min()) / (v.max() - v.min()))
+        # cv2.waitKey(1)
+        # sleep(0.01)
 
-with open('fetch_data.pkl', 'wb') as handle:
+with open('fetch_reach_data.pkl', 'wb') as handle:
     pickle.dump(dict_to_save, handle, protocol=pickle.HIGHEST_PROTOCOL)
 # # View camera locations
 # P = np.array([[0, 0, 0],
