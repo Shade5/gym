@@ -1,7 +1,7 @@
 from time import sleep
 from mujoco_py import GlfwContext
 import gym
-GlfwContext(offscreen=True)  # Create a window to init GLFW
+# GlfwContext(offscreen=True)  # Create a window to init GLFW
 import cv2
 import numpy as np
 from transforms3d.euler import quat2mat
