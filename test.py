@@ -1,12 +1,13 @@
 from time import sleep
 from mujoco_py import GlfwContext
 import gym
-GlfwContext(offscreen=True)  # Create a window to init GLFW
+# GlfwContext(offscreen=True)  # Create a window to init GLFW
 import cv2
 import numpy as np
 from transforms3d.euler import quat2mat
 from mayavi.mlab import points3d, show
 import pickle
+from tqdm import tqdm
 
 width, height = 128, 128
 fovy = 45
@@ -34,7 +35,7 @@ dict_to_save = {'intrinsics': K,
                                np.vstack((np.hstack((R2, t2)), [0, 0, 0, 1]))],
                 'rgb': [],
                 'depth': []}
-for i in range(100):
+for i in tqdm(range(100)):
     env.reset()
     done = False
     while not done:
