@@ -5,10 +5,6 @@
 		<flag warmstart="enable"></flag>
 	</option>
 
-	<asset>
-		<mesh file="mouse.stl" name="mouse" scale="0.01 0.01 0.01" />
-	</asset>
-
 	<include file="shared.xml"></include>
 	
 	<worldbody>
