@@ -18,14 +18,14 @@
 		<body pos="1.3 0.75 0.2" name="table0">
 			<geom size="0.25 0.35 0.2" type="box" mass="2000" material="table_mat"></geom>
 		</body>
-		<body name="camera0" pos="2 0.75 1">
+		<body name="camera0" pos="1.83024 0.763235 1.01316">
 			<camera quat="0.65823 0.258891 0.259097 0.657706" fovy="45" name="camera0"></camera>
 		</body>
-		<body name="camera1" pos="1.32 0 1">
-			<camera quat="0.929537 0.365891 -0.016726 0.042491" fovy="45" name="camera1"></camera>
+		<body name="camera1" pos="1.26 0.1 0.9">
+			<camera quat="0.897868 0.439944 -0.016734 -0.002177" fovy="45" name="camera1"></camera>
 		</body>
-		<body name="camera2" pos="1.32 1.5 1">
-			<camera quat="0.01996 0.007567 0.366225 0.930281" fovy="45" name="camera2"></camera>
+		<body name="camera2" pos="1.28 1.3 0.9">
+			<camera quat="-0.003312 0.005538 0.366566 0.93037" fovy="45" name="camera2"></camera>
 		</body>
 
 		<light directional="true" ambient="0.2 0.2 0.2" diffuse="0.8 0.8 0.8" specular="0.3 0.3 0.3" castshadow="false" pos="0 0 4" dir="0 0 -1" name="light0"></light>

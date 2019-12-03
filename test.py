@@ -7,6 +7,7 @@ import numpy as np
 from transforms3d.euler import quat2mat
 from mayavi.mlab import points3d, show
 import pickle
+from tqdm import tqdm
 
 width, height = 128, 128
 fovy = 45
@@ -34,7 +35,7 @@ dict_to_save = {'intrinsics': K,
                                np.vstack((np.hstack((R2, t2)), [0, 0, 0, 1]))],
                 'rgb': [],
                 'depth': []}
-for i in range(100):
+for i in tqdm(range(500)):
     env.reset()
     done = False
     while not done:
@@ -48,22 +49,9 @@ for i in range(100):
         #         cv2.imshow(k, (v - v.min()) / (v.max() - v.min()))
         # cv2.waitKey(1)
         # sleep(0.01)
-
-with open('fetch_reach_data.pkl', 'wb') as handle:
-    pickle.dump(dict_to_save, handle, protocol=pickle.HIGHEST_PROTOCOL)
-# # View camera locations
-# P = np.array([[0, 0, 0],
-#               [-0.1, -0.1, 0.1],
-#               [-0.1, 0.1, 0.1],
-#               [0.1, -0.1, 0.1],
-#               [0.1, 0.1, 0.1]]).T
-#
-# C0 = R0 @ P + t0
-# points3d(C0[0], C0[1], C0[2], color=(1, 0, 0), scale_factor=0.05)
-#
-# C1 = R1 @ P + t1
-# points3d(C1[0], C1[1], C1[2], color=(0, 1, 0), scale_factor=0.05)
-#
-# C2 = R2 @ P + t2
-# points3d(C2[0], C2[1], C2[2], color=(0, 0, 1), scale_factor=0.05)
-# show()
+    if (i+1) % 100 == 0:
+        pkl_file_name = './data/fetch_reach_data_%d.pkl' %(i/100)
+        with open(pkl_file_name, 'wb') as handle:
+            pickle.dump(dict_to_save, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            dict_to_save['rgb'] = []
+            dict_to_save['depth'] = []
